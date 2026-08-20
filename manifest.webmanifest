@@ -1,6 +1,6 @@
 {
   "name": "Šachové úlohy",
-  "short_name": "Úlohy",
+  "short_name": "Šachové úlohy",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

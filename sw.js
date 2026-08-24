@@ -1,7 +1,8 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1787595362';
+const CACHE = 'sachove-ulohy-1787599842';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
-                './ikona-192.png', './ikona-512.png'];
+                './ikona-192.png', './ikona-512.png',
+                './stockfish.js', './stockfish.wasm'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SUBORY)));

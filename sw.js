@@ -1,8 +1,11 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1791647403';
+const CACHE = 'sachove-ulohy-1791657608';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
                 './manifest-cs.webmanifest', './manifest-en.webmanifest',
                 './manifest-de.webmanifest', './manifest-fr.webmanifest',
+                './manifest-it.webmanifest', './manifest-es.webmanifest',
+                './manifest-pl.webmanifest', './manifest-pt.webmanifest',
+                './manifest-nl.webmanifest',
                 './ikona-192.png', './ikona-512.png'];
 // Motor ma VLASTNU cache pomenovanu podla obsahu svojich suborov (od 8.10.2026, Stockfish 19
 // ma 1,8 MB): CACHE sa meni s kazdou generaciou a motor by sa inak stahoval po kazdom

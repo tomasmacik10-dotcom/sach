@@ -1,5 +1,5 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1791759154';
+const CACHE = 'sachove-ulohy-1791841302';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
                 './manifest-cs.webmanifest', './manifest-en.webmanifest',
                 './manifest-de.webmanifest', './manifest-fr.webmanifest',

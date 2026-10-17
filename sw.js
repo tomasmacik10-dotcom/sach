@@ -1,5 +1,5 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1792264037';
+const CACHE = 'sachove-ulohy-1792274579';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
                 './manifest-cs.webmanifest', './manifest-en.webmanifest',
                 './manifest-de.webmanifest', './manifest-fr.webmanifest',
@@ -30,13 +30,19 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
+// Do pamate ide LEN uspesna odpoved (17.10.2026). Kym sa ukladalo cokolvek, ulozila sa aj
+// 404 z GitHubu, ked sa stranka otvorila pred dokoncenim nasadenia - a motor ide "najprv
+// z pamate", takze by ju podaval natrvalo (testovaci build v /test/ hlasil "Stockfish
+// neodpovedal.", appka fungovala). Pri ostatnych suboroch by 404 prepisala dobru kopiu.
+const ulozit = (odpoved) => odpoved.ok && odpoved.status !== 206;
+
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   // motor: najprv z pamate - jeho cache sa meni len s obsahom motora
   if (jeMotor(new URL(e.request.url).pathname)) {
     e.respondWith(caches.open(CACHE_MOTORA).then((c) => c.match(e.request).then((z) =>
       z || fetch(e.request).then((odpoved) => {
-        c.put(e.request, odpoved.clone());
+        if (ulozit(odpoved)) c.put(e.request, odpoved.clone());
         return odpoved;
       }))));
     return;
@@ -45,8 +51,10 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request)
       .then((odpoved) => {
-        const kopia = odpoved.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, kopia));
+        if (ulozit(odpoved)) {
+          const kopia = odpoved.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, kopia));
+        }
         return odpoved;
       })
       .catch(() => caches.match(e.request).then((z) => z || caches.match('./index.html')))

@@ -1,6 +1,6 @@
 {
-  "name": "Šach",
-  "short_name": "Šach",
+  "name": "Chess Chill: Offline Coach",
+  "short_name": "Chess Chill",
   "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",

@@ -1,5 +1,5 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1794050902';
+const CACHE = 'sachove-ulohy-1794051514';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
                 './ikona-192.png', './ikona-512.png'];
 // Motor ma VLASTNU cache pomenovanu podla obsahu svojich suborov (od 8.10.2026, Stockfish 19

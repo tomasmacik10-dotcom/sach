@@ -1,5 +1,5 @@
 // Drzi stranku v telefone, aby fungovala aj bez signalu.
-const CACHE = 'sachove-ulohy-1794084660';
+const CACHE = 'sachove-ulohy-1794130121';
 const SUBORY = ['./', './index.html', './manifest.webmanifest',
                 './ikona-192.png', './ikona-512.png'];
 // Motor ma VLASTNU cache pomenovanu podla obsahu svojich suborov (od 8.10.2026, Stockfish 19
@@ -8,6 +8,12 @@ const SUBORY = ['./', './index.html', './manifest.webmanifest',
 const CACHE_MOTORA = 'sachove-motor-6b2fa89';
 const MOTOR = ['./stockfish.js', './stockfish.wasm'];
 const jeMotor = (url) => MOTOR.some((m) => url.endsWith(m.slice(1)));
+// Ulohy po pasmach (ulohy-1400.json, 8.11.2026) si uklada STRANKA do vlastnej pamate
+// (viď stahovanie uloh v index.html) - service worker ich necha tak. Keby ich ukladal do
+// CACHE, mal by telefon po kazdom nasadeni dalsiu kopiu ~50 MB. Pri aktivacii sa ich pamat
+// nemaze.
+const CACHE_ULOH = 'sachove-ulohy-pasma';
+const jeUloha = (url) => /\/ulohy-\d{4}\.json$/.test(url);
 
 self.addEventListener('install', (e) => {
   e.waitUntil(Promise.all([
@@ -20,7 +26,7 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((mena) =>
-    Promise.all(mena.filter((m) => m !== CACHE && m !== CACHE_MOTORA)
+    Promise.all(mena.filter((m) => m !== CACHE && m !== CACHE_MOTORA && m !== CACHE_ULOH)
                     .map((m) => caches.delete(m)))));
   self.clients.claim();
 });
@@ -33,6 +39,7 @@ const ulozit = (odpoved) => odpoved.ok && odpoved.status !== 206;
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  if (jeUloha(new URL(e.request.url).pathname)) return;     // ulohy si uklada stranka
   // motor: najprv z pamate - jeho cache sa meni len s obsahom motora
   if (jeMotor(new URL(e.request.url).pathname)) {
     e.respondWith(caches.open(CACHE_MOTORA).then((c) => c.match(e.request).then((z) =>

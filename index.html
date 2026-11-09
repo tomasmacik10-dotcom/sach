@@ -1791,7 +1791,10 @@ document.documentElement.lang = JAZYK_APPKY;
     <button class="znova ikonaBtn" title="Dopredu" aria-label="Dopredu"><svg class="ikona" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3.5 L21 8.5 L16 13.5"/><path d="M21 8.5h-9a6 6 0 0 0 0 12h4"/></svg></button>
     <button class="analyzuj ikonaBtn" title="Analyzovať"
             aria-label="Analyzovať"><svg class="ikona ikonaVypln" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="5" height="8" rx="1.2"/><rect x="9.5" y="7" width="5" height="14" rx="1.2"/><rect x="16" y="10" width="5" height="11" rx="1.2"/></svg></button>
-    <button class="napoveda ikonaBtn" hidden title="Nápoveda"
+    <!-- Napoveda aj Vyhodnoť bez `hidden` (9.11.2026): karta uloh vznika od 8.11.2026 zo
+         sablony az po nacitani stranky a aktualizujAiTlacidla(), ktora ich odkryva, ju uz
+         nevidi - obe tlacidla v ulohach chybali. Viditelne su aj tak vzdy. -->
+    <button class="napoveda ikonaBtn" title="Nápoveda"
             aria-label="Nápoveda"><svg class="ikona zar1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a5.4 5.4 0 0 0-3.1 9.8V15.5h6.2V13A5.4 5.4 0 0 0 12 3.2Z"/><path d="M9.7 18.2h4.6"/><path d="M10.6 20.7h2.8"/></svg><svg class="ikona zar2" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2a4 4 0 0 0-2.3 7.2v1.9h4.6v-1.9A4 4 0 0 0 7 4.2Z"/><path d="M5.4 15.4h3.2"/><path d="M6 17.6h2"/><path d="M17 4.2a4 4 0 0 0-2.3 7.2v1.9h4.6v-1.9A4 4 0 0 0 17 4.2Z"/><path d="M15.4 15.4h3.2"/><path d="M16 17.6h2"/></svg></button>
   </p>
   <!-- Druhy rad, zarovnany doprava: Zobraziť riešenie, Vyhodnotiť ťah, sipky na prepnutie
@@ -1803,7 +1806,7 @@ document.documentElement.lang = JAZYK_APPKY;
        > do 2. 10. 2026. Kto tu nieco predlzi, musi premerat. -->
   <p class="hrat-riadok">
      <button class="ukazRiesenie">Zobraziť riešenie</button>
-     <button class="vyhodnot" hidden disabled>Vyhodnotiť ťah</button>
+     <button class="vyhodnot" disabled>Vyhodnotiť ťah</button>
      <button class="hrat" hidden>Hrať na šachovnici</button>
      <span class="radVpravo">
        <button class="predosla ikonaBtn"
@@ -1931,7 +1934,7 @@ document.documentElement.lang = JAZYK_APPKY;
     <button id="podpora" class="domovPolozka">Podporiť aplikáciu</button>
     <button id="spatnaVazba" class="domovPolozka">Poslať spätnú väzbu</button>
     <button id="verziaTlacidlo" class="domovPolozka">O aplikácii</button>
-    <div id="verzia" hidden>0dfbe0f · 9.11.2026 21:44</div>
+    <div id="verzia" hidden>f5abe54 · 9.11.2026 23:25</div>
   </div>
 </div>
 <script>

@@ -1993,7 +1993,7 @@ document.documentElement.lang = JAZYK_APPKY;
     <button id="podpora" class="domovPolozka">Podporiť aplikáciu</button>
     <button id="spatnaVazba" class="domovPolozka">Poslať spätnú väzbu</button>
     <button id="verziaTlacidlo" class="domovPolozka">O aplikácii</button>
-    <div id="verzia" hidden>aaf93ef · 10.11.2026 00:18</div>
+    <div id="verzia" hidden>e48cc13 · 10.11.2026 00:41</div>
   </div>
 </div>
 <script>
@@ -9657,6 +9657,21 @@ hryZoznam.addEventListener('click', (e) => {
 document.addEventListener('pointerdown', (e) => {
   if (ponukaHry && !e.target.closest('.hraPonuka, .hraBodky')) zavriPonukuHry();
 }, true);
+// Vo vybere viacerych hier zrusi vyber aj tuknutie na prazdne miesto (10.11.2026, ziadost
+// pouzivatela) - ako Zrušiť výber, Esc a Späť. Prazdne = nie hra, nie tlacidlo, nie lista.
+// Cez pointer udalosti (iOS click na neklikatelny prvok nedoruci), tuknutie = pohyb do 10 px.
+let hryTukOd = null;
+document.addEventListener('pointerdown', (e) => {
+  hryTukOd = hryVyberZap && !ulozeneObal.hidden ? { x: e.clientX, y: e.clientY } : null;
+});
+document.addEventListener('pointerup', (e) => {
+  const od = hryTukOd;
+  hryTukOd = null;
+  if (!od || !hryVyberZap || horneOkno()) return;
+  if (Math.hypot(e.clientX - od.x, e.clientY - od.y) > 10) return;
+  if (e.target.closest('#hryZoznam li, .hryVyber, button, a, label')) return;
+  zrusVyberHier();
+});
 
 document.getElementById('hryVybrat').addEventListener('click', () => zapniVyberHier());
 document.getElementById('hryVsetky').addEventListener('click', () => {
